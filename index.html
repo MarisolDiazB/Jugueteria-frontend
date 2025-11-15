@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JUGUETERIA</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <!-- BARRA SUPERIOR -->
+    <header class="topbar">
+      <div class="topbar__title">
+        JUGUETERIA
+      </div>
+      <div class="topbar__brand">
+        
+      </div>
+    </header>
+
+    <main class="page">
+      <!-- TARJETA DE LOGIN -->
+      <section id="login-card" class="card card--centered">
+        <h2 class="card__title">Iniciar sesión</h2>
+        <p class="card__subtitle">
+        </p>
+
+        <form id="login-form" class="form">
+          <div class="form__group">
+            <label for="login-username">Usuario</label>
+            <input
+              id="login-username"
+              type="text"
+              placeholder="usuario@example.com"
+              required
+            />
+          </div>
+
+          <div class="form__group">
+            <label for="login-password">Contraseña</label>
+            <input
+              id="login-password"
+              type="password"
+              placeholder="********"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--full">
+            Iniciar sesión
+          </button>
+
+          <p id="login-status" class="text-status"></p>
+        </form>
+      </section>
+
+      <!-- APLICACIÓN PRINCIPAL -->
+      <section id="app" class="app hidden">
+        <!-- Cabecera del panel -->
+        <div class="app__header">
+          <div>
+            <h1 class="app__title">PANEL DE PRODUCTOS</h1>
+            <p class="app__subtitle">
+  
+            </p>
+          </div>
+          <div class="app__userbox">
+            <span class="app__user-label">Usuario logueado:</span>
+            <span id="logged-user" class="app__username"></span>
+            <button id="logout-btn" class="btn btn--secondary">
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
+
+        <!-- Layout de 2 columnas -->
+        <div class="layout">
+          <!-- Columna izquierda: productos -->
+          <div class="layout__col">
+            <!-- Filtro -->
+            <div class="card">
+              <div class="card__header card__header--inline">
+                <h2 class="card__title">Productos</h2>
+                <button id="reload-btn" class="btn btn--ghost">
+                  Recargar
+                </button>
+              </div>
+
+              <div class="filter">
+                <div class="form__group form__group--inline">
+                  <label for="filter-text">Buscar por nombre o categoría</label>
+                  <input
+                    id="filter-text"
+                    type="text"
+                    placeholder="Ej: lego, muñeca, construcción..."
+                  />
+                </div>
+                <button id="filter-btn" class="btn btn--secondary">
+                  Filtrar
+                </button>
+                <button id="reload-btn-2" class="btn btn--ghost" onclick="loadProducts()">
+                  Ver todos
+                </button>
+              </div>
+
+              <!-- Tabla -->
+              <div class="table-wrapper">
+                <table id="products-table" class="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Categoría</th>
+                      <th>Precio</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Se llena desde app.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Formulario crear / editar -->
+            <div class="card">
+              <div class="card__header card__header--inline">
+                <h2 id="form-title" class="card__title">Crear producto</h2>
+                <button
+                  id="cancel-edit-btn"
+                  class="btn btn--ghost hidden"
+                  type="button"
+                >
+                  Cancelar edición
+                </button>
+              </div>
+
+              <form id="product-form" class="form">
+                <!-- campo oculto para ID -->
+                <input type="hidden" id="product-id" />
+
+                <div class="form__group">
+                  <label for="product-name">Nombre</label>
+                  <input
+                    id="product-name"
+                    type="text"
+                    placeholder="Lego City"
+                    required
+                  />
+                </div>
+
+                <div class="form__group">
+                  <label for="product-category">Categoría</label>
+                  <input
+                    id="product-category"
+                    type="text"
+                    placeholder="Construcción"
+                    required
+                  />
+                </div>
+
+                <div class="form__group">
+                  <label for="product-price">Precio</label>
+                  <input
+                    id="product-price"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    placeholder="120000"
+                    required
+                  />
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--full">
+                  Guardar
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Columna derecha: gráfica -->
+          <div class="layout__col">
+            <div class="card card--stretch">
+              <div class="card__header">
+                <h2 class="card__title">Gráfica: productos por categoría</h2>
+                <p class="card__subtitle">
+                  Cada barra representa cuántos productos hay en cada categoría.
+                </p>
+              </div>
+
+              <div class="chart-wrapper">
+                <canvas id="productsChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barra de estado -->
+        <div id="status" class="status-bar"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,9 +1,9 @@
-// ======================= CONFIG =========================
+
 const API_BASE_URL = "http://127.0.0.1:8000";
-const LOGIN_URL = `${API_BASE_URL}/auth/login`;   // ajústalo si tu ruta de login es otra
+const LOGIN_URL = `${API_BASE_URL}/auth/login`;   
 const PRODUCTS_URL = `${API_BASE_URL}/products`;
 
-// Categorías fijas: texto que tú escribes en el formulario  ->  UUID del backend
+
 const CATEGORY_IDS = {
   Construccion: "eb657ccd-0ca7-439b-a3b7-80fb572dd5f3",
   "Juegos de mesa": "c3ce87db-8157-46de-8530-f69b33f25657",
@@ -34,11 +34,10 @@ function setStatus(msg, type = "ok") {
   el.className = type === "ok" ? "ok" : "error";
 }
 
-// Devuelve siempre un nombre de categoría bonito para un producto
 function getCategoryName(p) {
   return (
-    CATEGORY_LABELS[p.category_id] ?? // si viene de tu API
-    p.category ??                     // por si en algún momento viene el texto
+    CATEGORY_LABELS[p.category_id] ?? 
+    p.category ??                     
     p.categoria ??
     "Sin categoría"
   );
